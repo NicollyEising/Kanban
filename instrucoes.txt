@@ -1,0 +1,5 @@
+venv
+
+C:\Users\faculdade\Desktop\Kanban> python manage.py runserver
+
+PS C:\Users\faculdade\Desktop\Kanban\kanban-frontend> npm run serve
