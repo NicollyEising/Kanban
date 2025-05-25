@@ -2,13 +2,14 @@
 
 ## Visão Geral
 
-Este projeto consiste em uma aplicação Kanban com backend em Django e frontend em JavaScript (ex: Vue.js ou Nuxt). O backend fornece uma API que gerencia tarefas e colunas, enquanto o frontend consome esta API para renderizar a interface do usuário.
+Este projeto consiste em uma aplicação Kanban com backend em Django e frontend em JavaScript (Vue.js). O backend fornece uma API que gerencia tarefas e colunas, enquanto o frontend consome esta API para renderizar a interface do usuário.
 
 ## Requisitos
 
 - Python 3.8+
 - Node.js 14+
 - npm ou yarn
+- PostgreSQL
 - Virtualenv (opcional, mas recomendado)
 
 ## Configuração do Backend (Django)
