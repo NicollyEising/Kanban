@@ -12,7 +12,7 @@ Este projeto consiste em uma aplicação Kanban com backend em Django e frontend
 - PostgreSQL
 - Virtualenv (opcional, mas recomendado)
 
-## Configuração do Backend (Django)
+## Configuração
 
 1. Instale as dependencias
 2. Rode o server:
