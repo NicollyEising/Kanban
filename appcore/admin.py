@@ -34,3 +34,4 @@ class CardAdmin(admin.ModelAdmin):
     list_filter = ['column']
     ordering = ['column', 'order']
     search_fields = ['title', 'description']
+

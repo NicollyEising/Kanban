@@ -21,6 +21,5 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('appcore.urls')),  # Certifique-se que 'appcore.urls' existe
-    path('', include('appcore.urls')),
+    path('api/', include('appcore.urls')),
 ]
