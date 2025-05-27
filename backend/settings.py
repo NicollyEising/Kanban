@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from django.db import connection
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -79,10 +81,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'kanban_db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': 'postgres',
+        'NAME': 'kanban_db',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+
+print(connection.settings_dict['NAME'])
 
 
 
