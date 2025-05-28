@@ -1,0 +1,229 @@
+
+/* Cabeçalho do board com efeito de sombra */
+.board-title {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1em;
+}
+
+/* Cartões de coluna com elevação */
+.column-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.column-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Cabeçalho da coluna com destaque */
+.column-header {
+  border-bottom: 2px solid #2185d0;
+  padding-bottom: 0.5em !important;
+}
+
+/* Cards individuais com padding ajustado */
+.card-item {
+  padding: 0.8em 1em;
+  background: #fff;
+  border-radius: 6px;
+  margin-bottom: 0.5em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Transições */
+.fade-in-enter-active,
+.column-fade-enter-active,
+.form-fade-enter-active,
+.card-list-enter-active {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.fade-in-leave-active,
+.column-fade-leave-active,
+.form-fade-leave-active,
+.card-list-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-in-enter-from,
+.column-fade-enter-from,
+.form-fade-enter-from,
+.card-list-enter-from {
+  opacity: 0;
+  transform: scale(0.98);
+}
+.fade-in-enter-to,
+.column-fade-enter-to,
+.form-fade-enter-to,
+.card-list-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.card-list-move {
+  transition: transform 0.5s ease;
+}
+
+/* Scrollbar suave (opcional, mas muito bom!) */
+.card-list::-webkit-scrollbar {
+  width: 8px;
+}
+.card-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+.card-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
+.create-button {
+  margin: 16px auto;
+  display: block;
+  padding: 10px 20px;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.create-button:hover {
+  background-color: #1c6fa0;
+}
+
+
+.card-form {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-input,
+.card-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.card-textarea {
+  min-height: 60px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.submit-button {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.submit-button:disabled {
+  background-color: #7fb3d5;
+  cursor: not-allowed;
+}
+.submit-button:hover:enabled {
+  background-color: #1c6fa0;
+}
+
+.cancel-button {
+  background-color: #bbb;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.cancel-button:hover {
+  background-color: #999;
+}
+
+.kanban-board {
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.board-title {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.columns {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+.column {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.column-title {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  color: #34495e;
+  border-bottom: 2px solid #2980b9;
+  padding-bottom: 8px;
+}
+
+.cards-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.card {
+  background-color: #ecf0f1;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.card:hover {
+  background-color: #d0e6f7;
+}
+
+.card-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+}
+
+.loading {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  padding: 40px 0;
+}

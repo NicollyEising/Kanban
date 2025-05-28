@@ -1,4 +1,7 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+// main.js (Vue 3)
+import { createApp } from 'vue';
+import App from './App.vue';
+import 'semantic-ui-css/semantic.min.css';
 
-createApp(App).mount('#app')
+
+createApp(App).mount('#app');
