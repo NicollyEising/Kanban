@@ -1,25 +1,22 @@
-# serializers.py
-
 from rest_framework import serializers
 from .models import Board, Column, Card
+from django.contrib.auth.models import User
+
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ['id', 'title', 'description', 'order', 'column']
-
-class ColumnSerializer(serializers.ModelSerializer):
-    cards = CardSerializer(many=True, read_only=True)  # usa related_name='cards' no FK
-
-
-    
-    class Meta:
-        model = Column
         fields = '__all__'
 
+class ColumnSerializer(serializers.ModelSerializer):
+    cards = CardSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Column
+        fields = ['id', 'name', 'order', 'cards']
 
 class BoardSerializer(serializers.ModelSerializer):
-    columns = ColumnSerializer(many=True, read_only=True)  # usa related_name='columns' no FK
+    columns = ColumnSerializer(many=True, read_only=True)
 
     class Meta:
         model = Board
