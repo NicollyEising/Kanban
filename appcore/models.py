@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 def create_board_and_columns(sender, instance, created, **kwargs):
     if created:
         # Cria o board para o usuário
-        board = Board.objects.create(name=f"Kanban de {instance.username}", user=instance)
+        board = Board.objects.create(name=f"Quadro de {instance.username}", user=instance)
         
         # Lista de nomes das colunas padrão
         default_columns = ["A Fazer", "Em Progresso", "Feito"]
