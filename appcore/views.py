@@ -84,3 +84,8 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': token.user_id,
             'username': token.user.username
         })
+
+class CardDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+    permission_classes = [permissions.IsAuthenticated]

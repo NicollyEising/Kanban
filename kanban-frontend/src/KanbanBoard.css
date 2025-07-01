@@ -118,6 +118,11 @@
   transform: translateY(5px);
 }
 
+.card-item .content {
+  text-align: left !important;
+  padding:  5px!important;
+}
+
 /* Responsividade para telas pequenas */
 @media (max-width: 768px) {
   .columns {

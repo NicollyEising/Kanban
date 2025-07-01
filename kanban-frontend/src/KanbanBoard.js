@@ -3,6 +3,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      editingCard: null,
       authTab: 'login',
       loginForm: {
         username: '',
@@ -18,7 +19,7 @@ export default {
       isAuthenticated: false,
       token: '',
       board: null,
-      cardForms: {}, // Armazena quais colunas têm formulário visível
+      cardForms: {},
       newCard: {
         title: '',
         description: '',
@@ -26,57 +27,38 @@ export default {
     };
   },
 
+  mounted() {
+    const storedToken = localStorage.getItem('kanban_token');
+    if (storedToken) {
+      this.token = storedToken;
+      this.isAuthenticated = true;
+      this.loadBoard();
+    }
+  },
+
+  watch: {
+    token(newVal) {
+      if (newVal) {
+        localStorage.setItem('kanban_token', newVal);
+      } else {
+        localStorage.removeItem('kanban_token');
+      }
+    },
+  },
+
   methods: {
-    async login() {
-      this.loading = true;
-      this.authError = '';
-      try {
-        const response = await axios.post('http://localhost:8000/api/login/', this.loginForm);
-        this.token = response.data.token;
-        this.isAuthenticated = true;
-        await this.loadBoard();
-      } catch (error) {
-        this.authError = 'Usuário ou senha inválidos.';
-        console.error(error);
-      } finally {
-        this.loading = false;
-      }
+    getColumnColor(columnId) {
+      const colors = ['#1abc9c', '#3498db', '#9b59b6', '#e67e22', '#e74c3c'];
+      return colors[columnId % colors.length];
     },
 
-    async register() {
-      this.loading = true;
-      this.authError = '';
-      try {
-        await axios.post('http://localhost:8000/api/register/', this.registerForm);
-        this.registerSuccess = true;
-        this.authTab = 'login';
-      } catch (error) {
-        this.authError = 'Erro ao registrar. Tente outro nome de usuário.';
-        console.error(error);
-      } finally {
-        this.loading = false;
-      }
-    },
-
-    logout() {
-      this.token = '';
-      this.isAuthenticated = false;
-      this.board = null;
-      this.loginForm = { username: '', password: '' };
-      this.registerForm = { username: '', password: '' };
-    },
     async loadBoard() {
       try {
         const response = await axios.get('http://localhost:8000/api/board/', {
           headers: { Authorization: `Token ${this.token}` },
         });
-        const boards = response.data;      
-        if (Array.isArray(boards) && boards.length > 0) {
-          this.board = boards[0];          
-        } else {
-          this.board = null;                
-        }
-        console.log("Dados do board carregado:", this.board);
+        const boards = response.data;
+        this.board = Array.isArray(boards) && boards.length > 0 ? boards[0] : null;
         this.initCardForms();
       } catch (error) {
         console.error('Erro ao carregar board:', error);
@@ -144,31 +126,75 @@ export default {
         console.error('Erro ao adicionar card:', error);
       }
     },
-    
 
-    getColumnColor(columnId) {
-      const colors = ['#1abc9c', '#3498db', '#9b59b6', '#e67e22', '#e74c3c'];
-      return colors[columnId % colors.length];
+    startEditCard(card) {
+      this.editingCard = { ...card };
     },
-  },
 
-  mounted() {
-    // Verificação automática de token armazenado (opcional)
-    const storedToken = localStorage.getItem('kanban_token');
-    if (storedToken) {
-      this.token = storedToken;
-      this.isAuthenticated = true;
-      this.loadBoard();
-    }
-  },
+    cancelEditCard() {
+      this.editingCard = null;
+    },
 
-  watch: {
-    token(newVal) {
-      if (newVal) {
-        localStorage.setItem('kanban_token', newVal);
-      } else {
-        localStorage.removeItem('kanban_token');
+    async submitEditCard() {
+      try {
+        await axios.put(`http://localhost:8000/api/card/${this.editingCard.id}/`, this.editingCard, {
+          headers: { Authorization: `Token ${this.token}` },
+        });
+        this.editingCard = null;
+        this.loadBoard();
+      } catch (err) {
+        console.error(err);
       }
+    },
+
+    async deleteCard(cardId) {
+      try {
+        await axios.delete(`http://localhost:8000/api/card/${cardId}/`, {
+          headers: { Authorization: `Token ${this.token}` },
+        });
+        this.loadBoard();
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    async login() {
+      this.loading = true;
+      this.authError = '';
+      try {
+        const response = await axios.post('http://localhost:8000/api/login/', this.loginForm);
+        this.token = response.data.token;
+        this.isAuthenticated = true;
+        await this.loadBoard();
+      } catch (error) {
+        this.authError = 'Usuário ou senha inválidos.';
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async register() {
+      this.loading = true;
+      this.authError = '';
+      try {
+        await axios.post('http://localhost:8000/api/register/', this.registerForm);
+        this.registerSuccess = true;
+        this.authTab = 'login';
+      } catch (error) {
+        this.authError = 'Erro ao registrar. Tente outro nome de usuário.';
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    logout() {
+      this.token = '';
+      this.isAuthenticated = false;
+      this.board = null;
+      this.loginForm = { username: '', password: '' };
+      this.registerForm = { username: '', password: '' };
     },
   },
 };
